@@ -80,6 +80,8 @@ ENTRY_POINTS = \
             'ImageRaster2D = pyhmsa.fileformat.xmlhandler.datum.imageraster:ImageRaster2DXMLHandler',
             'ImageRaster2DSpectral = pyhmsa.fileformat.xmlhandler.datum.imageraster:ImageRaster2DSpectralXMLHandler',
             'ImageRaster2DHyperimage = pyhmsa.fileformat.xmlhandler.datum.imageraster:ImageRaster2DHyperimageXMLHandler',
+
+            'Dataset = pyhmsa.fileformat.xmlhandler.datum.dataset:DatasetXMLHandler',
              ],
          'pyhmsa.fileformat.importer':
             ['EMSA = pyhmsa.fileformat.importer.emsa:ImporterEMSA',

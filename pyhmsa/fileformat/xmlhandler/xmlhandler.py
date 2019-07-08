@@ -128,18 +128,21 @@ class _XMLHandler(object):
         return obj
 
     def _parse_numerical_attribute(self, element, attrib=None):
-        datatype = element.attrib['DataType']
-        if datatype.startswith('array:'):
-            dtype = DTYPES_LOOKUP_PARSE[datatype[6:]]
-            value = np.array(list(map(float, element.text.split(','))), dtype=dtype)
-            assert len(value) == int(element.attrib['Count'])
+        if "DataType" in element.attrib:
+            datatype = element.attrib['DataType']
+            if datatype.startswith('array:'):
+                dtype = DTYPES_LOOKUP_PARSE[datatype[6:]]
+                value = np.array(list(map(float, element.text.split(','))), dtype=dtype)
+                assert len(value) == int(element.attrib['Count'])
+            else:
+                dtype = DTYPES_LOOKUP_PARSE[datatype]
+                value = dtype.type(float(element.text))
+
+            unit = element.get('Unit')
+
+            return convert_value(value, unit)
         else:
-            dtype = DTYPES_LOOKUP_PARSE[datatype]
-            value = dtype.type(float(element.text))
-
-        unit = element.get('Unit')
-
-        return convert_value(value, unit)
+            return float(element.text)
 
     def _parse_text_attribute(self, element, attrib=None):
         attribs = list(filter(lambda s: s.startswith('alt-lang-'), element.keys()))

@@ -133,7 +133,7 @@ class _DataFileReaderMixin:
             handlers.add(handler)
 
         # Parse data
-        elements = root.findall('Data/*')
+        elements = root.findall('Data/*') + root.findall('Dataset')
         count = len(elements)
         for i, element in enumerate(elements):
             key = element.get('Name', 'Inst%i' % len(datafile.data))
